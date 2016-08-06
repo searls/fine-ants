@@ -90,6 +90,7 @@ class MyAdapter
       }
     ]
   end
+end
 ```
 
 You can pass your own adapter class:
