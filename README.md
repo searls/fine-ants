@@ -4,6 +4,12 @@ Got finance problems? Have some fine_ants to help.
 
 ## Usage
 
+```
+$ gem install fine_ants
+```
+
+And then:
+
 ``` ruby
 accounts = FineAnts.download(:vanguard, {
   :user => "janelastname",
