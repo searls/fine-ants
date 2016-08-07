@@ -3,6 +3,8 @@ require "bigdecimal"
 module FineAnts
   module Adapters
     class Vanguard
+      include Capybara::DSL
+
       def initialize(credentials)
         @user = credentials[:user]
         @password = credentials[:password]
