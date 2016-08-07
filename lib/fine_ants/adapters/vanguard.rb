@@ -40,7 +40,7 @@ module FineAnts
             :name => cells[0].find("a").text,
             :amount => BigDecimal.new(cells[1].text.match(/\$(.*)$/)[1].gsub(/,/,''))
           }
-        end
+        end.tap { click_link "Log off" }
       end
 
     private
