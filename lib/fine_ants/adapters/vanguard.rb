@@ -30,15 +30,15 @@ module FineAnts
       end
 
       def download
-        rows = find(:id, "BalancesTabBoxId:balancesForm:balancesTable").all("tr")
-        rows[0..-3].map do |row|
+        rows = find(".accountsList table").all("tr")
+        rows.map do |row|
           cells = row.all("td")
           {
             :adapter => :vanguard,
             :user => @user,
-            :id => cells[0].find("a")[:href].match(/.*#(.*)$/)[1],
-            :name => cells[0].find("a").text,
-            :amount => BigDecimal.new(cells[1].text.match(/\$(.*)$/)[1].gsub(/,/,''))
+            :id => cells.first.find("a")[:href].match(/.*#(.*)$/)[1],
+            :name => cells.first.text,
+            :amount => BigDecimal.new(cells.last.text.match(/\$(.*)$/)[1].gsub(/,/,''))
           }
         end.tap { click_link "Log off" }
       end
@@ -46,7 +46,7 @@ module FineAnts
     private
 
       def verify_login!
-        find "#comp-lastLogon"
+        find ".lastLogon"
       rescue Capybara::ElementNotFound
         raise FineAnts::LoginFailedError.new
       end
