@@ -1,6 +1,7 @@
 require "capybara/dsl"
 
 require "fine_ants/adapters/vanguard"
+require "fine_ants/adapters/pnc"
 
 module FineAnts
   module Adapters
@@ -9,7 +10,6 @@ module FineAnts
       const_get(const_name).tap do |adapter|
         adapter.class_eval do
           include Capybara::DSL
-
         end
       end
     end

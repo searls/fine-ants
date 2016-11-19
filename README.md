@@ -57,7 +57,8 @@ when a login process requires a 2FA challenge.
 
 Right now, FineAnts ships with adapters for:
 
-* [Vanguard personal finance](https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage)
+* [Vanguard Personal Investment](https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage)
+* [PNC Personal Banking](https://www.pnc.com/en/personal-banking.html)
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
