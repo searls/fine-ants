@@ -28,8 +28,8 @@ module FineAnts
       end
 
       def download
-        rows = all("tr.depAccount")
-        rows[0..-3].map do |row|
+        rows = all("#depositAccountsWrapper tr.depAccount")
+        rows.map do |row|
           cells = row.all("td")
           {
             :adapter => :pnc,
