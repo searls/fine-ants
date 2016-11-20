@@ -2,6 +2,7 @@ require "capybara/dsl"
 
 require "fine_ants/adapters/vanguard"
 require "fine_ants/adapters/pnc"
+require "fine_ants/adapters/betterment"
 
 module FineAnts
   module Adapters
