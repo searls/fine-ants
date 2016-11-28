@@ -62,6 +62,7 @@ Right now, FineAnts ships with adapters for:
 * [Betterment](https://www.betterment.com)
 * [Chase](https://www.chase.com)
 * [Simple](https://www.simple.com)
+* [Target REDcard](https://rcam.target.com)
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
