@@ -60,6 +60,7 @@ Right now, FineAnts ships with adapters for:
 * [Vanguard Personal Investment](https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage)
 * [PNC Personal Banking](https://www.pnc.com/en/personal-banking.html)
 * [Betterment](https://www.betterment.com)
+* [Chase](https://www.chase.com)
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
