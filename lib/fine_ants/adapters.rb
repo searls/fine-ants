@@ -4,6 +4,7 @@ require "fine_ants/adapters/vanguard"
 require "fine_ants/adapters/pnc"
 require "fine_ants/adapters/betterment"
 require "fine_ants/adapters/chase"
+require "fine_ants/adapters/simple"
 
 module FineAnts
   module Adapters

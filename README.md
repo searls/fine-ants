@@ -61,6 +61,7 @@ Right now, FineAnts ships with adapters for:
 * [PNC Personal Banking](https://www.pnc.com/en/personal-banking.html)
 * [Betterment](https://www.betterment.com)
 * [Chase](https://www.chase.com)
+* [Simple](https://www.simple.com)
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
