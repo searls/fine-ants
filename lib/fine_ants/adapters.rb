@@ -1,11 +1,7 @@
 require "capybara/dsl"
 
-require "fine_ants/adapters/vanguard"
-require "fine_ants/adapters/pnc"
-require "fine_ants/adapters/betterment"
-require "fine_ants/adapters/chase"
-require "fine_ants/adapters/simple"
-require "fine_ants/adapters/target"
+# Autoload all predefined adapters
+Dir[File.join(File.dirname(__FILE__), 'adapters', '*.rb')].each { |f| require f }
 
 module FineAnts
   module Adapters
