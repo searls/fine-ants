@@ -1,5 +1,4 @@
 require "bigdecimal"
-require 'pry'
 
 module FineAnts
   module Adapters
