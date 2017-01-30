@@ -2,7 +2,7 @@ require "bigdecimal"
 
 module FineAnts
   module Adapters
-    class Simple
+    class SimpleBancorp
       def initialize(credentials)
         @user = credentials[:user]
         @password = credentials[:password]
@@ -25,7 +25,7 @@ module FineAnts
 
         [
           {
-            :adapter => :simple,
+            :adapter => :simple_bancorp,
             :user => @user,
             :id => "#{user_name}",
             :name => "#{user_name}",
