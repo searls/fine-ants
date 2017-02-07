@@ -10,9 +10,15 @@ module FineAnts
 
       def login
         visit "https://www.chase.com"
-        fill_in "User name", :with => @user
-        fill_in "Password", :with => @password
-        click_link "Sign in"
+        within_frame(find("#logonbox")) do
+          fill_in "Username", :with => @user
+          fill_in "Password", :with => @password
+          # I'm not happy with this. Chase's site seems to blank out the
+          # username and password fields if you hit "Sign in" immediately after
+          # the dialog appears. We're sleeping to sidestep this behavior.
+          sleep 0.1
+          click_on "Sign in"
+        end
         verify_login!
       end
 
@@ -54,7 +60,7 @@ module FineAnts
       private
 
       def parse_currency(currency_string)
-        BigDecimal.new(currency_string.match(/\$(.*)$/)[1].gsub(/,/,''))
+        BigDecimal.new(currency_string.match(/\$(.*)$/)[1].delete(","))
       end
 
       def parse_due_date(due_date_string)
