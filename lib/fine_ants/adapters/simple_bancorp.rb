@@ -2,7 +2,7 @@ require "bigdecimal"
 
 module FineAnts
   module Adapters
-    class Simple
+    class SimpleBancorp
       def initialize(credentials)
         @user = credentials[:user]
         @password = credentials[:password]
@@ -19,13 +19,13 @@ module FineAnts
       end
 
       def download
+        balance = find(".sts-available").find("b").text
+        available_balance = find("#sts-flag").text.strip
         user_name = find(".masthead-username").text
-        balance = find_all(".balances-item-value").first.text
-        available_balance = find(".balances-sts .amount").text.strip
 
         [
           {
-            :adapter => :simple,
+            :adapter => :simple_bancorp,
             :user => @user,
             :id => "#{user_name}",
             :name => "#{user_name}",
@@ -41,7 +41,7 @@ module FineAnts
       end
 
       def parse_currency(currency_string)
-        BigDecimal.new(currency_string.match(/\$?(.*)$/)[1].delete(","))
+        BigDecimal.new(currency_string.match(/\$?(.*)$/)[1].gsub(/,/,''))
       end
 
       def verify_login!
