@@ -57,13 +57,16 @@ when a login process requires a 2FA challenge.
 
 Right now, FineAnts ships with adapters for:
 
-* [Vanguard Personal Investment](https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage)
-* [PNC Personal Banking](https://www.pnc.com/en/personal-banking.html)
-* [Betterment](https://www.betterment.com)
-* [Chase](https://www.chase.com)
-* [Simple](https://www.simple.com)
-* [Target REDcard](https://rcam.target.com)
-* [Purdue Federal Credit Union](https://www.purduefed.com)
+| Name                                                                                    | Adapter Name      |
+| --------------------------------------------------------------------------------------- | ----------------- |
+| [Vanguard Personal Investment](https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage) | `:vanguard` |
+| [PNC Personal Banking](https://www.pnc.com/en/personal-banking.html) | `:pnc` |
+| [Betterment](https://www.betterment.com) | `:betterment` |
+| [Chase](https://www.chase.com) | `:chase` |
+| [Simple (BBVA)](https://www.simple.com) | `:simple` |
+| [Simple (Bancorp)](https://www.simple.com) | `:simple_bancorp` |
+| [Target REDcard](https://rcam.target.com) | `:target` |
+| [Purdue Federal Credit Union](https://www.purduefed.com) | `:purduefed` |
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
