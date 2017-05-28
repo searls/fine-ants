@@ -7,3 +7,7 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+/spec/request_cache
+/.env
+/log/
