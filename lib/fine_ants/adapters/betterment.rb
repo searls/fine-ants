@@ -13,11 +13,24 @@ module FineAnts
         fill_in "web_authentication[email]", :with => @user
         fill_in "web_authentication[password]", :with => @password
         click_button "Log in"
+        begin
+          find_field "web_second_factor_authentication[verification_code]"
+          return false
+        rescue Capybara::ElementNotFound
+          verify_login!
+          return true
+        end
+      end
+
+      def two_factor_response(answer)
+        fill_in "web_second_factor_authentication[verification_code]", :with => answer
+        find(".web_second_factor_authentication_trust_device").click
+        click_button "Verify"
         verify_login!
       end
 
       def download
-        accounts = all(".sub-account")
+        accounts = all(".SummaryTable-card")
         accounts.map do |account|
           {
             :adapter => :betterment,
@@ -27,30 +40,31 @@ module FineAnts
             :amount => total_for(account)
           }
         end.tap do
-          find(".dropdown .user-option").click
-          click_button "Log Out"
+          find('.sc-Nav-panelTrigger').click
+          find('.sc-Nav-panelTrigger').click
+          find('.sc-Nav-panelTrigger .SecondaryNavLogoutAction button', visible: false).click
         end
       end
 
     private
 
       def verify_login!
-        find ".total-balance"
+        find ".Dashboard-summaryCards"
       rescue
         raise FineAnts::LoginFailedError.new
       end
 
       def id_for(account)
-        link = account.find(".donut-label a")
+        link = account.find(".SummaryTable-donutContainer a")
         link[:href].match(/\/app\/goals\/(\d+)\//)[1]
       end
 
       def name_for(account)
-        "#{account.find(".type-and-plan").text} - #{account.find(".goal-name").text}"
+        "#{account.find(".SummaryTable-accountName .SummaryTable-label").text} - #{account.find(".SummaryTable-accountName .u-secondaryHeading").text}"
       end
 
       def total_for(account)
-        total_string = account.find(".current-balance h3").text
+        total_string = account.find(".SummaryTable-rightAlignedText .u-secondaryHeading").text
         BigDecimal.new(total_string.match(/\$(.*)$/)[1].gsub(/,/,''))
       end
     end
