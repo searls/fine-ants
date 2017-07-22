@@ -11,7 +11,7 @@ module FineAnts
       def login
         visit "https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage"
         fill_in "LoginForm:USER", :with => @user
-        fill_in "LoginForm:PASSWORD", :with => @password
+        fill_in "LoginForm:PASSWORD-blocked", :with => @password
         click_button "LoginForm:submitInput"
         begin
           find_field "LoginForm:ANSWER"
