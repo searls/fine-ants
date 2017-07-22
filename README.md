@@ -62,11 +62,13 @@ Right now, FineAnts ships with adapters for:
 | [Vanguard Personal Investment](https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage) | `:vanguard` |
 | [PNC Personal Banking](https://www.pnc.com/en/personal-banking.html) | `:pnc` |
 | [Betterment](https://www.betterment.com) | `:betterment` |
+| [E*Trade](https://www.etrade.com) | `:etrade` |
 | [Chase](https://www.chase.com) | `:chase` |
 | [Simple (BBVA)](https://www.simple.com) | `:simple` |
 | [Simple (Bancorp)](https://www.simple.com) | `:simple_bancorp` |
 | [Target REDcard](https://rcam.target.com) | `:target` |
 | [Purdue Federal Credit Union](https://www.purduefed.com) | `:purduefed` |
+| [Ohio State Teacher Retirement System (STRS)](https://www.nrsstrsoh.org) | `:strs` |
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
