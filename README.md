@@ -69,6 +69,7 @@ Right now, FineAnts ships with adapters for:
 | [Target REDcard](https://rcam.target.com) | `:target` |
 | [Purdue Federal Credit Union](https://www.purduefed.com) | `:purduefed` |
 | [Ohio State Teacher Retirement System (STRS)](https://www.nrsstrsoh.org) | `:strs` |
+| [Zillow (Zestimate, user is the "zpid")](https://zillow.com) | `:zillow` |
 
 You can also implement your own adapter and pass it to `FineAnts.download`. The
 expected public contract of an adapter is:
