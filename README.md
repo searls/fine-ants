@@ -64,6 +64,7 @@ Right now, FineAnts ships with adapters for:
 | [Betterment](https://www.betterment.com) | `:betterment` |
 | [E*Trade](https://www.etrade.com) | `:etrade` |
 | [Chase](https://www.chase.com) | `:chase` |
+| [American Express](https://www.americanexpress.com) | `:amex` |
 | [Simple (BBVA)](https://www.simple.com) | `:simple` |
 | [Simple (Bancorp)](https://www.simple.com) | `:simple_bancorp` |
 | [Target REDcard](https://rcam.target.com) | `:target` |
