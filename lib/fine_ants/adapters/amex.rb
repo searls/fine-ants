@@ -28,7 +28,7 @@ module FineAnts
             :user => @user,
             :id => name,
             :name => name,
-            :amount => BigDecimal.new(if owed
+            :amount => -1 * BigDecimal.new(if owed
                 account.find("table td:nth-child(2) span").text.gsub(/[\$,]/,'')
               else
                 "0"
