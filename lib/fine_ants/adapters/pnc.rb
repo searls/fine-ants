@@ -11,20 +11,28 @@ module FineAnts
       def login
         visit "https://www.onlinebanking.pnc.com/alservlet/SignonInitServlet"
         fill_in "userId", :with => @user
+        fill_in "password", :with => @password
         click_button "Sign On"
 
-        if all("input[name=answer").any?
+        if all("input[value='Generate Code']").any?
+          click_button "Generate Code"
+          return false
+        elsif all("input[name=answer]").any?
           return false
         else
-          try_password!
+          verify_login!
           return true
         end
       end
 
-      def two_factor_response(answer)
-        fill_in "answer", :with => answer
+      def two_factor_response(text_or_answer)
+        if all("input[name=answer]").any? # Security Q
+          fill_in "answer", :with => text_or_answer
+        else # Text message challenge
+          fill_in "otpNumber", :with => text_or_answer
+        end
         click_button "Continue"
-        try_password!
+        verify_login!
       end
 
       def download
@@ -43,9 +51,7 @@ module FineAnts
 
     private
 
-      def try_password!
-        fill_in "password", :with => @password
-        click_button "Sign On"
+      def verify_login!
         find ".lastSignOn"
       rescue
         raise FineAnts::LoginFailedError.new
