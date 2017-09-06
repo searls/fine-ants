@@ -20,7 +20,7 @@ module FineAnts
           #{@adapter.class.name} is requiring two-factor auth.
           Check your SMS/Email/TOTP and type it here:
         TEXT
-        response = gets.chomp
+        response = STDIN.gets.chomp
         @adapter.two_factor_response(response)
       end
     end
