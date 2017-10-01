@@ -12,10 +12,21 @@ module FineAnts
         visit "https://www.simple.com"
         click_link "Log In"
 
-        fill_in "username", :with => @user
-        fill_in "passphrase", :with => @password
-        click_button "Sign in"
-        verify_login!
+        fill_in "login_username", :with => @user
+        fill_in "login_password", :with => @password
+        click_button "Sign In"
+        begin
+          find_field "Enter 4-digit code"
+          return false
+        rescue Capybara::ElementNotFound
+          verify_login!
+          return true
+        end
+      end
+
+      def two_factor_response(answer)
+        fill_in "Enter 4-digit code", :with => answer
+        click_button "Verify"
       end
 
       def download
