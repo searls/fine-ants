@@ -10,6 +10,7 @@ module FineAnts
 
       def login
         visit "https://www.chase.com"
+
         within_frame(find("#logonbox")) do
           fill_in "Username", :with => @user
           fill_in "Password", :with => @password
@@ -19,6 +20,7 @@ module FineAnts
           sleep 0.1
           click_on "Sign in"
         end
+
         verify_login!
       end
 
@@ -30,15 +32,14 @@ module FineAnts
         # Select credit card
         find("h3", text: "CREDIT CARDS")
           .find(:xpath, "../..")
-          .find("section")
-          .first("div")
+          .first(".account-tile")
           .click
 
-        credit_card_table = find("table.dl-box")
+        credit_card_table = find("div.account")
 
-        balance = credit_card_table.find("#accountCurrentBalance").text
-        available_balance = credit_card_table.find("#accountAvailableCreditBalance").text
-        next_due_date = credit_card_table.find("#nextPaymentDueDate").text
+        balance = credit_card_table.find("#accountCurrentBalanceWithToolTipValue").text
+        available_balance = credit_card_table.find("#availableCreditWithTransferBalanceValue").text
+        next_due_date = credit_card_table.find("#nextPaymentDueDateValue").text
 
         accounts = [
           {
@@ -68,7 +69,7 @@ module FineAnts
       end
 
       def verify_login!
-        find '[data-attr="LOGON_DETAILS.lastLogonDetailsLabel"]'
+        find "#logonDetailsContainer"
       rescue Capybara::ElementNotFound
         raise FineAnts::LoginFailedError.new
       end
