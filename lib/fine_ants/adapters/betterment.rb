@@ -30,7 +30,9 @@ module FineAnts
       end
 
       def download
-        accounts = all(".SummaryTable-card")
+        betterment_accounts = find("h2", text: "Betterment Accounts").
+                              find(:xpath, "../..")
+        accounts = betterment_accounts.all(".SummaryTable-card")
         accounts.map do |account|
           {
             :adapter => :betterment,
