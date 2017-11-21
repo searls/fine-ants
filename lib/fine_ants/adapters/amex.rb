@@ -10,7 +10,8 @@ module FineAnts
 
       def login
         visit "https://www.americanexpress.com"
-        within "#ssoform" do
+        form_css = find("form")[:id] == "ssoform" ? "#ssoform" : ".eliloMain"
+        within form_css do
           fill_in "User ID", :with => @user
           fill_in "Password", :with => @password
           click_link "Log In"
@@ -20,21 +21,22 @@ module FineAnts
 
       def download
         visit "https://global.americanexpress.com/accounts"
+        find(".card-block")
         all(".card-block > div").map do |account|
           name = account.find('.heading-3').text
-          owed = account.all("table td").size == 3
+          owed = account.text.include?("Total Balance")
           {
             :adapter => :amex,
             :user => @user,
             :id => name,
             :name => name,
             :amount => -1 * BigDecimal.new(if owed
-                account.find("table td:nth-child(2) span").text.gsub(/[\$,]/,'')
+                account.all("table td:nth-child(2) span").first.text.gsub(/[\$,]/,'')
               else
                 "0"
               end)
           }
-        end.tap do
+        end.tap do |accounts|
           page.driver.go_back
           click_button "Log Out"
         end
