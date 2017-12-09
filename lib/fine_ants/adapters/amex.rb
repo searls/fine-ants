@@ -14,7 +14,7 @@ module FineAnts
         within form_css do
           fill_in "User ID", :with => @user
           fill_in "Password", :with => @password
-          click_link "Log In"
+          click_thing "Log In"
         end
         verify_login!
       end
@@ -48,6 +48,12 @@ module FineAnts
         find_button "Log Out"
       rescue
         raise FineAnts::LoginFailedError.new
+      end
+
+      def click_thing(locator)
+        click_link locator
+      rescue
+        click_button locator
       end
     end
   end
