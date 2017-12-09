@@ -46,7 +46,7 @@ module FineAnts
     private
 
       def verify_login!
-        find ".lastLogon"
+        find_link "Log off"
       rescue Capybara::ElementNotFound
         raise FineAnts::LoginFailedError.new
       end
