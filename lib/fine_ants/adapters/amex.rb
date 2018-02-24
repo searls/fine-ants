@@ -23,7 +23,7 @@ module FineAnts
         visit "https://global.americanexpress.com/accounts"
         find(".card-block")
         all(".card-block > div").map do |account|
-          name = account.find('.heading-3').text
+          name = account.find('.card > .pad > .heading-3').text
           owed = account.text.include?("Total Balance")
           {
             :adapter => :amex,
