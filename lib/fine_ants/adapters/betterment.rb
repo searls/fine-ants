@@ -66,7 +66,7 @@ module FineAnts
       end
 
       def name_for(account)
-        "#{account.ancestor(".sc-Card").find(".ft-goalName").text} - #{account.find(".ft-subAccountName").text}"
+        "#{account.find(".ft-subAccountName").text} - #{account.ancestor(".sc-Card").find(".ft-goalName").text}"
       end
 
       def total_for(account)
