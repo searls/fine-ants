@@ -30,9 +30,11 @@ module FineAnts
       end
 
       def download
-        betterment_accounts = find("h2", text: "Betterment Accounts").
-                              find(:xpath, "../..")
-        accounts = betterment_accounts.all(".SummaryTable-card")
+        all(".ft-goalAccordionLabel").each { |accordion|
+          accordion.click
+          sleep 0.3
+        }
+        accounts = all ".ft-goalExpandedFooter .sc-ContentLayout:nth-child(1) .ft-accounts .ft-subAccountExpandedRow"
         accounts.map do |account|
           {
             :adapter => :betterment,
@@ -42,31 +44,33 @@ module FineAnts
             :amount => total_for(account)
           }
         end.tap do
-          find('.sc-Nav-panelTrigger').click
-          find('.sc-Nav-panelTrigger').click
-          find('.sc-Nav-panelTrigger .SecondaryNavLogoutAction button', visible: false).click
+          find_logout_button.click
         end
       end
 
     private
 
       def verify_login!
-        find ".Dashboard-summaryCards"
+        find_logout_button
       rescue
         raise FineAnts::LoginFailedError.new
       end
 
+      def find_logout_button
+        find(".sc-Nav-panelTrigger").hover
+        find(".SecondaryNavLogoutAction button")
+      end
+
       def id_for(account)
-        link = account.find(".SummaryTable-donutContainer a")
-        link[:href].match(/\/app\/goals\/(\d+)\//)[1]
+        account.find("a[data-track-name=\"AutoDepositIntended\"]")["data-track-broker-dealer-account-id"]
       end
 
       def name_for(account)
-        "#{account.find(".SummaryTable-accountName .SummaryTable-label").text} - #{account.find(".SummaryTable-accountName .u-secondaryHeading").text}"
+        "#{account.ancestor(".sc-Card").find(".ft-goalName").text} - #{account.find(".ft-subAccountName").text}"
       end
 
       def total_for(account)
-        total_string = account.find(".SummaryTable-rightAlignedText .u-secondaryHeading").text
+        total_string = account.find(".ft-subAccountBalance").text
         BigDecimal.new(total_string.match(/\$(.*)$/)[1].gsub(/,/,''))
       end
     end
