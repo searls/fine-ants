@@ -38,14 +38,14 @@ module FineAnts
           }
         end.tap do |accounts|
           page.driver.go_back
-          click_button "Log Out"
+          all("span", :text => "Log Out").each(&:click)
         end
       end
 
     private
 
       def verify_login!
-        find_button "Log Out"
+        page.has_text? "Log Out"
       rescue
         raise FineAnts::LoginFailedError.new
       end
