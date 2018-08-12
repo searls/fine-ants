@@ -36,9 +36,6 @@ module FineAnts
                 "0"
               end)
           }
-        end.tap do |accounts|
-          page.driver.go_back
-          all("span", :text => "Log Out").each(&:click)
         end
       end
 
