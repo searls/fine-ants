@@ -57,8 +57,7 @@ module FineAnts
       end
 
       def find_logout_button
-        find(".sc-Nav-panelTrigger").hover
-        find(".SecondaryNavLogoutAction button")
+        find(".Navigation-logoutAction")
       end
 
       def id_for(account)
