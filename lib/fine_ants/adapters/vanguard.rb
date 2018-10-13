@@ -36,7 +36,7 @@ module FineAnts
           {
             :adapter => :vanguard,
             :user => @user,
-            :id => cells.first.find("a")[:href].match(/.*#(.*)$/)[1],
+            :id => cells.first.all("a").first[:href].match(/.*#(.*)$/)[1],
             :name => cells.first.text,
             :amount => BigDecimal.new(cells.last.text.match(/\$(.*)$/)[1].gsub(/,/,''))
           }
