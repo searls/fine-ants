@@ -10,8 +10,8 @@ module FineAnts
 
       def login
         visit "https://us.etrade.com/e/t/user/login"
-        fill_in "User ID", :with => @user
-        fill_in "Password", :with => @password
+        fill_in "USER", :with => @user
+        fill_in "PASSWORD", :with => @password
         click_button "Log on"
         verify_login!
       end
