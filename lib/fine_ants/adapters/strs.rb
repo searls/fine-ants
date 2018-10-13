@@ -41,7 +41,7 @@ module FineAnts
             :user => @user,
             :id => find(".plan-info-plan .disabled-phone-link").text,
             :name => find(".plan-info-plan").text,
-            :amount => BigDecimal.new(find(".dash-health-alt__total_number").text.gsub(/[\$,]/,''))
+            :amount => BigDecimal.new(find(".dash-health-alt__total_number").text.gsub(/[\$,\s]/,''))
           }
         ].tap do
           click_link "Log Out"
