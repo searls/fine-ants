@@ -9,12 +9,12 @@ module FineAnts
       end
 
       def login
-        visit "https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage"
-        fill_in "LoginForm:USER", :with => @user
-        fill_in "LoginForm:PASSWORD-blocked", :with => @password
-        click_button "LoginForm:submitInput"
+        visit "https://investor.vanguard.com/my-account/log-on-ecx"
+        fill_in "User name", :with => @user
+        fill_in "Password", :with => @password
+        click_button "Log On"
         begin
-          find_field "LoginForm:ANSWER"
+          find_field "code"
           return false
         rescue Capybara::ElementNotFound
           verify_login!
@@ -23,9 +23,10 @@ module FineAnts
       end
 
       def two_factor_response(answer)
-        fill_in "LoginForm:ANSWER", :with => answer
-        choose "LoginForm:DEVICE:0"
-        click_button "LoginForm:ContinueInput"
+        binding.pry
+        fill_in "code", :with => answer
+        choose "YES"
+        click_button "Continue"
         verify_login!
       end
 
