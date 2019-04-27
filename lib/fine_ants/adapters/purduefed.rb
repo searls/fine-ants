@@ -18,11 +18,11 @@ module FineAnts
 
       def download
         deposit_table = find("span", text: /Deposit Accounts/)
-                        .find(:xpath, "../..")
-                        .find(".module_container")
+          .find(:xpath, "../..")
+          .find(".module_container")
         loan_table = find("span", text: /Loans/)
-                     .find(:xpath, "../..")
-                     .find(".module_container")
+          .find(:xpath, "../..")
+          .find(".module_container")
         deposit_transactions = process_table(deposit_table)
         loan_transactions = process_table(loan_table, type: :loan)
 
@@ -51,7 +51,7 @@ module FineAnts
             name: name,
             type: type,
             amount: amount,
-            available_amount: parse_currency(cells[2].text)
+            available_amount: parse_currency(cells[2].text),
           }
         end
       end
@@ -65,7 +65,7 @@ module FineAnts
       end
 
       def parse_currency(currency_string)
-        BigDecimal.new(currency_string.match(/\$(.*)$/)[1].delete(","))
+        BigDecimal(currency_string.match(/\$(.*)$/)[1].delete(","))
       end
 
       def empty_table?(table)

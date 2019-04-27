@@ -10,8 +10,8 @@ module FineAnts
 
       def login
         visit "https://personal.vanguard.com/us/hnwnesc/nesc/LoginPage"
-        fill_in "LoginForm:USER", :with => @user
-        fill_in "LoginForm:PASSWORD-blocked", :with => @password
+        fill_in "LoginForm:USER", with: @user
+        fill_in "LoginForm:PASSWORD-blocked", with: @password
         click_button "LoginForm:submitInput"
         begin
           find_field "LoginForm:ANSWER"
@@ -23,7 +23,7 @@ module FineAnts
       end
 
       def two_factor_response(answer)
-        fill_in "LoginForm:ANSWER", :with => answer
+        fill_in "LoginForm:ANSWER", with: answer
         choose "LoginForm:DEVICE:0"
         click_button "LoginForm:ContinueInput"
         verify_login!
@@ -31,19 +31,19 @@ module FineAnts
 
       def download
         rows = find(".accountsList table").all("tr")
-        rows.map do |row|
+        rows.map { |row|
           cells = row.all("td")
           {
-            :adapter => :vanguard,
-            :user => @user,
-            :id => cells.first.all("a").first[:href].match(/.*#(.*)$/)[1],
-            :name => cells.first.text,
-            :amount => BigDecimal.new(cells.last.text.match(/\$(.*)$/)[1].gsub(/,/,''))
+            adapter: :vanguard,
+            user: @user,
+            id: cells.first.all("a").first[:href].match(/.*#(.*)$/)[1],
+            name: cells.first.text,
+            amount: BigDecimal(cells.last.text.match(/\$(.*)$/)[1].delete(",")),
           }
-        end.tap { click_link "Log off" }
+        }.tap { click_link "Log off" }
       end
 
-    private
+      private
 
       def verify_login!
         find_link "Log off"
@@ -53,4 +53,3 @@ module FineAnts
     end
   end
 end
-

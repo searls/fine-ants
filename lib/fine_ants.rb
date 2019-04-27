@@ -7,10 +7,10 @@ require "fine_ants/login_failed_error"
 module FineAnts
   def self.download(adapter_name, credentials)
     adapter = if adapter_name.instance_of?(Class)
-                adapter_name
-              else
-                Adapters.look_up(adapter_name)
-              end
+      adapter_name
+    else
+      Adapters.look_up(adapter_name)
+    end
     Runner.new(adapter.new(credentials), credentials).download
   end
 end

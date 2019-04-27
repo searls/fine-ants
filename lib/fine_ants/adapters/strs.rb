@@ -10,8 +10,8 @@ module FineAnts
 
       def login
         visit "https://www.nrsstrsoh.org/iApp/tcm/nrsstrsoh/index.jsp"
-        fill_in "Username", :with => @user
-        fill_in "Password (Case sensitive)", :with => @password
+        fill_in "Username", with: @user
+        fill_in "Password (Case sensitive)", with: @password
         click_button "Log In"
         begin
           find_field "contactPoint"
@@ -23,7 +23,7 @@ module FineAnts
       end
 
       def two_factor_response(answer)
-        fill_in "confirmationCode", :with => answer
+        fill_in "confirmationCode", with: answer
         find_field("continue").click
         begin
           find "#rememberTrue"
@@ -37,18 +37,18 @@ module FineAnts
       def download
         [
           {
-            :adapter => :strs,
-            :user => @user,
-            :id => find(".plan-info-plan .disabled-phone-link").text,
-            :name => find(".plan-info-plan").text,
-            :amount => BigDecimal.new(find(".dash-health-alt__total_number").text.gsub(/[\$,\s]/,''))
-          }
+            adapter: :strs,
+            user: @user,
+            id: find(".plan-info-plan .disabled-phone-link").text,
+            name: find(".plan-info-plan").text,
+            amount: BigDecimal(find(".dash-health-alt__total_number").text.gsub(/[\$,\s]/, "")),
+          },
         ].tap do
           click_link "Log Out"
         end
       end
 
-    private
+      private
 
       def verify_login!
         find(".dash-health-alt__current_total_balance")
@@ -58,8 +58,3 @@ module FineAnts
     end
   end
 end
-
-
-
-
-

@@ -12,8 +12,8 @@ module FineAnts
         visit "https://www.simple.com"
         click_link "Log In"
 
-        fill_in "login_username", :with => @user
-        fill_in "login_password", :with => @password
+        fill_in "login_username", with: @user
+        fill_in "login_password", with: @password
         click_button "Sign In"
         begin
           find_field "Enter 4-digit code"
@@ -25,7 +25,7 @@ module FineAnts
       end
 
       def two_factor_response(answer)
-        fill_in "Enter 4-digit code", :with => answer
+        fill_in "Enter 4-digit code", with: answer
         click_button "Verify"
       end
 
@@ -36,23 +36,24 @@ module FineAnts
 
         [
           {
-            :adapter => :simple,
-            :user => @user,
-            :id => "#{user_name}",
-            :name => "#{user_name}",
-            :amount => parse_currency(balance),
-            :available_amount => parse_currency(available_balance),
-          }
-        ].tap{ logout! }
+            adapter: :simple,
+            user: @user,
+            id: user_name.to_s,
+            name: user_name.to_s,
+            amount: parse_currency(balance),
+            available_amount: parse_currency(available_balance),
+          },
+        ].tap { logout! }
       end
 
       private
+
       def logout!
         visit "https://bank.simple.com/signout"
       end
 
       def parse_currency(currency_string)
-        BigDecimal.new(currency_string.match(/\$?(.*)$/)[1].delete(","))
+        BigDecimal(currency_string.match(/\$?(.*)$/)[1].delete(","))
       end
 
       def verify_login!
@@ -63,4 +64,3 @@ module FineAnts
     end
   end
 end
-

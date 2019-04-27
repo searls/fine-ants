@@ -10,8 +10,8 @@ module FineAnts
 
       def login
         visit "https://wwws.betterment.com/app/login"
-        fill_in "web_authentication[email]", :with => @user
-        fill_in "web_authentication[password]", :with => @password
+        fill_in "web_authentication[email]", with: @user
+        fill_in "web_authentication[password]", with: @password
         click_button "Log in"
         begin
           find_field "web_second_factor_authentication[verification_code]"
@@ -23,32 +23,32 @@ module FineAnts
       end
 
       def two_factor_response(answer)
-        fill_in "web_second_factor_authentication[verification_code]", :with => answer
+        fill_in "web_second_factor_authentication[verification_code]", with: answer
         find(".web_second_factor_authentication_trust_device").click
         click_button "Verify"
         verify_login!
       end
 
       def download
-        all(".ft-goalAccordionLabel").each { |accordion|
+        all(".ft-goalAccordionLabel").each do |accordion|
           accordion.click
           sleep 0.3
-        }
+        end
         accounts = all ".ft-goalExpandedFooter .sc-ContentLayout:nth-child(1) .ft-accounts .ft-subAccountExpandedRow"
-        accounts.map do |account|
+        accounts.map { |account|
           {
-            :adapter => :betterment,
-            :user => @user,
-            :id => id_for(account),
-            :name => name_for(account),
-            :amount => total_for(account)
+            adapter: :betterment,
+            user: @user,
+            id: id_for(account),
+            name: name_for(account),
+            amount: total_for(account),
           }
-        end.tap do
+        }.tap do
           find_logout_button.click
         end
       end
 
-    private
+      private
 
       def verify_login!
         find_logout_button
@@ -70,11 +70,8 @@ module FineAnts
 
       def total_for(account)
         total_string = account.find(".ft-subAccountBalance").text
-        BigDecimal.new(total_string.match(/\$(.*)$/)[1].gsub(/,/,''))
+        BigDecimal(total_string.match(/\$(.*)$/)[1].delete(","))
       end
     end
   end
 end
-
-
-

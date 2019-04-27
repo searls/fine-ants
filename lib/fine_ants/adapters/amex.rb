@@ -12,8 +12,8 @@ module FineAnts
         visit "https://www.americanexpress.com"
         form_css = find("form")[:id] == "ssoform" ? "#ssoform" : ".eliloMain"
         within form_css do
-          fill_in "User ID", :with => @user
-          fill_in "Password", :with => @password
+          fill_in "User ID", with: @user
+          fill_in "Password", with: @password
           click_thing "Log In"
         end
         verify_login!
@@ -23,23 +23,23 @@ module FineAnts
         visit "https://global.americanexpress.com/accounts"
         find(".card-block")
         all(".card-block > div").map do |account|
-          name = account.find('.card > .pad > .heading-3').text
+          name = account.find(".card > .pad > .heading-3").text
           owed = account.text.include?("Total Balance")
           {
-            :adapter => :amex,
-            :user => @user,
-            :id => name,
-            :name => name,
-            :amount => -1 * BigDecimal.new(if owed
-                account.all("table td:nth-child(2) span").first.text.gsub(/[\$,]/,'')
-              else
-                "0"
-              end)
+            adapter: :amex,
+            user: @user,
+            id: name,
+            name: name,
+            amount: -1 * BigDecimal(if owed
+                           account.all("table td:nth-child(2) span").first.text.gsub(/[\$,]/, "")
+                         else
+                           "0"
+                                    end),
           }
         end
       end
 
-    private
+      private
 
       def verify_login!
         page.has_text? "Log Out"
@@ -55,8 +55,3 @@ module FineAnts
     end
   end
 end
-
-
-
-
-

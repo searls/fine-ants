@@ -10,27 +10,27 @@ module FineAnts
 
       def login
         visit "https://us.etrade.com/e/t/user/login"
-        fill_in "USER", :with => @user
-        fill_in "PASSWORD", :with => @password
+        fill_in "USER", with: @user
+        fill_in "PASSWORD", with: @password
         click_button "Log on"
         verify_login!
       end
 
       def download
-        all("section.account").map do |account|
+        all("section.account").map { |account|
           {
-            :adapter => :etrade,
-            :user => @user,
-            :id => account.find("#acctNum .number-reveal", :visible => false).text(:all),
-            :name => account.find("a.account-id").text,
-            :amount => BigDecimal.new(account.find(".table-horizontal .text-right.secondary").text.gsub(/[\$,]/,''))
+            adapter: :etrade,
+            user: @user,
+            id: account.find("#acctNum .number-reveal", visible: false).text(:all),
+            name: account.find("a.account-id").text,
+            amount: BigDecimal(account.find(".table-horizontal .text-right.secondary").text.gsub(/[\$,]/, "")),
           }
-        end.tap do
+        }.tap do
           click_link "Log Off"
         end
       end
 
-    private
+      private
 
       def verify_login!
         find_link "Log Off"
@@ -40,7 +40,3 @@ module FineAnts
     end
   end
 end
-
-
-
-

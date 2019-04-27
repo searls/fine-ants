@@ -8,22 +8,22 @@ module FineAnts
       end
 
       def login
-        return true # No login necessary
+        true # No login necessary
       end
 
       def download
         visit "https://www.zillow.com/homedetails/total_nonsense/#{@user}_zpid/?fullpage=true"
         zestimate = find_first(
-          '.estimates .home-summary-row:nth-child(2) span:nth-child(2)',
-          '.zestimate.primary-quote'
+          ".estimates .home-summary-row:nth-child(2) span:nth-child(2)",
+          ".zestimate.primary-quote"
         ).text.match(/(\$.*)/)[1]
 
         [{
-          :adapter => :zillow,
-          :user => @user,
-          :id => @user,
-          :name => find_first('.addr h1', '.hdp-home-header-st-addr').text,
-          :amount => BigDecimal.new(zestimate.gsub(/[\$,]/,''))
+          adapter: :zillow,
+          user: @user,
+          id: @user,
+          name: find_first(".addr h1", ".hdp-home-header-st-addr").text,
+          amount: BigDecimal(zestimate.gsub(/[\$,]/, "")),
         }]
       end
 
@@ -31,16 +31,10 @@ module FineAnts
 
       def find_first(*locators)
         locators.each do |locator|
-          begin
-            return find(locator)
-          rescue Capybara::ElementNotFound
-          end
+          return find(locator)
+        rescue Capybara::ElementNotFound
         end
       end
     end
   end
 end
-
-
-
-

@@ -10,13 +10,13 @@ module FineAnts
       @adapter.download
     end
 
-  private
+    private
 
     def login!
       puts "Attempting to login to #{@adapter.class.name} as '#{@credentials[:user]}'"
       login_complete = @adapter.login
       if !login_complete && @adapter.respond_to?(:two_factor_response)
-        puts <<-TEXT.gsub(/^\s+/,'')
+        puts <<-TEXT.gsub(/^\s+/, "")
           #{@adapter.class.name} is requiring two-factor auth.
           Check your SMS/Email/TOTP and type it here:
         TEXT
@@ -24,7 +24,5 @@ module FineAnts
         @adapter.two_factor_response(response)
       end
     end
-
   end
 end
-

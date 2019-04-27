@@ -12,8 +12,8 @@ module FineAnts
         visit "https://www.chase.com"
 
         within_frame(find("#logonbox")) do
-          fill_in "Username", :with => @user
-          fill_in "Password", :with => @password
+          fill_in "Username", with: @user
+          fill_in "Password", with: @password
           # I'm not happy with this. Chase's site seems to blank out the
           # username and password fields if you hit "Sign in" immediately after
           # the dialog appears. We're sleeping to sidestep this behavior.
@@ -43,15 +43,15 @@ module FineAnts
 
         accounts = [
           {
-            :adapter => :chase,
-            :user => @user,
-            :id => find(".ACTNAME").text,
-            :name => find(".ACTNAME").text,
-            :type => :credit_card,
-            :amount => -1 * parse_currency(balance),
-            :available_amount => parse_currency(available_balance),
-            :next_due_date => parse_due_date(next_due_date)
-          }
+            adapter: :chase,
+            user: @user,
+            id: find(".ACTNAME").text,
+            name: find(".ACTNAME").text,
+            type: :credit_card,
+            amount: -1 * parse_currency(balance),
+            available_amount: parse_currency(available_balance),
+            next_due_date: parse_due_date(next_due_date),
+          },
         ]
 
         logout
@@ -61,7 +61,7 @@ module FineAnts
       private
 
       def parse_currency(currency_string)
-        BigDecimal.new(currency_string.match(/\$(.*)$/)[1].delete(","))
+        BigDecimal(currency_string.match(/\$(.*)$/)[1].delete(","))
       end
 
       def parse_due_date(due_date_string)
@@ -76,4 +76,3 @@ module FineAnts
     end
   end
 end
-
