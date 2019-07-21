@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "capybara", "~> 3.18.0"
+  spec.add_dependency "capybara", "~> 3.26"
   spec.add_dependency "selenium-webdriver", "~> 3.142.0"
 
   spec.add_development_dependency "bundler", "~> 1.11"
