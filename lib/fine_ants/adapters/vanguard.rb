@@ -16,10 +16,10 @@ module FineAnts
         click_button "LoginForm:submitInput"
         begin
           find_field "LoginForm:ANSWER"
-          return false
+          false
         rescue Capybara::ElementNotFound
           verify_login!
-          return true
+          true
         end
       end
 
@@ -31,7 +31,7 @@ module FineAnts
       end
 
       def download
-        rows = find(".accountsList table").all("tr")
+        rows = find("[id='BalancesTabBoxId:balancesForm:balancesTable']").all("tr:not([tbodyid])")
         rows.map { |row|
           cells = row.all("td")
           {
@@ -39,7 +39,7 @@ module FineAnts
             user: @user,
             id: cells.first.all("a").first[:href].match(/.*#(.*)$/)[1],
             name: cells.first.text,
-            amount: BigDecimal(cells.last.text.match(/\$(.*)$/)[1].delete(",")),
+            amount: BigDecimal(cells.last.text.match(/\$(.*)$/)[1].delete(","))
           }
         }.tap { click_link "Log off" }
       end
