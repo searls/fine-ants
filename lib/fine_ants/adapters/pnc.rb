@@ -12,7 +12,7 @@ module FineAnts
         visit "https://www.onlinebanking.pnc.com/alservlet/SignonInitServlet"
         fill_in "userId", with: @user
         fill_in "password", with: @password
-        click_button "Sign On"
+        click_button "Sign In"
 
         if all("input[value='Generate Code']").any?
           click_button "Generate Code"
