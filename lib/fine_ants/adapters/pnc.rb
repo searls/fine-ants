@@ -16,12 +16,12 @@ module FineAnts
 
         if all("input[value='Generate Code']").any?
           click_button "Generate Code"
-          return false
+          false
         elsif all("input[name=answer]").any?
-          return false
+          false
         else
           verify_login!
-          return true
+          true
         end
       end
 
@@ -44,7 +44,7 @@ module FineAnts
             user: @user,
             id: cells[2].text, # TODO - this won't be unique, only gives last 4 :-/
             name: cells[0].text,
-            amount: BigDecimal(cells[3].text.match(/\$(.*)$/)[1].delete(",")),
+            amount: BigDecimal(cells[3].text.match(/\$(.*)$/)[1].delete(","))
           }
         }.tap { click_link "Sign Off" }
       end

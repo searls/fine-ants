@@ -15,10 +15,10 @@ module FineAnts
         click_button "Log In"
         begin
           find_field "contactPoint"
-          return false
+          false
         rescue Capybara::ElementNotFound
           verify_login!
-          return true
+          true
         end
       end
 
@@ -41,8 +41,8 @@ module FineAnts
             user: @user,
             id: find(".plan-info-plan .disabled-phone-link").text,
             name: find(".plan-info-plan").text,
-            amount: BigDecimal(find(".dash-health-alt__total_number").text.gsub(/[\$,\s]/, "")),
-          },
+            amount: BigDecimal(find(".dash-health-alt__total_number").text.gsub(/[\$,\s]/, ""))
+          }
         ].tap do
           click_link "Log Out"
         end

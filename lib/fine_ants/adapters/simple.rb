@@ -17,10 +17,10 @@ module FineAnts
         click_button "Sign In"
         begin
           find_field "Enter 4-digit code"
-          return false
+          false
         rescue Capybara::ElementNotFound
           verify_login!
-          return true
+          true
         end
       end
 
@@ -41,8 +41,8 @@ module FineAnts
             id: user_name.to_s,
             name: user_name.to_s,
             amount: parse_currency(balance),
-            available_amount: parse_currency(available_balance),
-          },
+            available_amount: parse_currency(available_balance)
+          }
         ].tap { logout! }
       end
 

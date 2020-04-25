@@ -34,7 +34,7 @@ module FineAnts
                            account.all("table td:nth-child(2) span").first.text.gsub(/[\$,]/, "")
                          else
                            "0"
-                                    end),
+                                    end)
           }
         end
       end

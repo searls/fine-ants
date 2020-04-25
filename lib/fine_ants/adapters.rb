@@ -1,7 +1,7 @@
 require "capybara/dsl"
 
 # Autoload all predefined adapters
-Dir[File.join(File.dirname(__FILE__), "adapters", "*.rb")].each { |f| require f }
+Dir[File.join(File.dirname(__FILE__), "adapters", "*.rb")].sort.each { |f| require f }
 
 module FineAnts
   module Adapters

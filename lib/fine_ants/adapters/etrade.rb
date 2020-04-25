@@ -24,7 +24,7 @@ module FineAnts
             user: @user,
             id: account.find("#acctNum .number-reveal", visible: false).text(:all),
             name: account.find("a.account-id").text,
-            amount: BigDecimal(account.find(".table-horizontal .text-right.secondary").text.gsub(/[\$,]/, "")),
+            amount: BigDecimal(account.find(".table-horizontal .text-right.secondary").text.gsub(/[\$,]/, ""))
           }
         }.tap do
           click_link "Log Off"

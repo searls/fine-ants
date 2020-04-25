@@ -50,8 +50,8 @@ module FineAnts
             type: :credit_card,
             amount: -1 * parse_currency(balance),
             available_amount: parse_currency(available_balance),
-            next_due_date: parse_due_date(next_due_date),
-          },
+            next_due_date: parse_due_date(next_due_date)
+          }
         ]
 
         logout

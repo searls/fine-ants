@@ -23,7 +23,7 @@ module FineAnts
           user: @user,
           id: @user,
           name: find_first(".addr h1", ".hdp-home-header-st-addr").text,
-          amount: BigDecimal(zestimate.gsub(/[\$,]/, "")),
+          amount: BigDecimal(zestimate.gsub(/[\$,]/, ""))
         }]
       end
 

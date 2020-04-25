@@ -15,10 +15,10 @@ module FineAnts
         click_button "Log in"
         begin
           find_field "web_second_factor_authentication[verification_code]"
-          return false
+          false
         rescue Capybara::ElementNotFound
           verify_login!
-          return true
+          true
         end
       end
 
@@ -41,7 +41,7 @@ module FineAnts
             user: @user,
             id: id_for(account),
             name: name_for(account),
-            amount: total_for(account),
+            amount: total_for(account)
           }
         }.tap do
           find_logout_button.click

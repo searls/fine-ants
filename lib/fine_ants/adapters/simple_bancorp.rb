@@ -30,8 +30,8 @@ module FineAnts
             id: user_name.to_s,
             name: user_name.to_s,
             amount: parse_currency(balance),
-            available_amount: parse_currency(available_balance),
-          },
+            available_amount: parse_currency(available_balance)
+          }
         ].tap { logout! }
       end
 

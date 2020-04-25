@@ -20,10 +20,10 @@ module FineAnts
         begin
           find ".multi-factor"
           click_button "btn-sms"
-          return false
+          false
         rescue Capybara::ElementNotFound
           verify_login!
-          return true
+          true
         end
       end
 
@@ -44,7 +44,7 @@ module FineAnts
             name: row.find(".details-container__account-name").text,
             amount: BigDecimal(
               row.find(".details-container__account-amount").text.match(/\$(.*)$/)[1].delete(",")
-            ),
+            )
           }
         }
       end

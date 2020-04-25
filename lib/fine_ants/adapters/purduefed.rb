@@ -51,7 +51,7 @@ module FineAnts
             name: name,
             type: type,
             amount: amount,
-            available_amount: parse_currency(cells[2].text),
+            available_amount: parse_currency(cells[2].text)
           }
         end
       end
